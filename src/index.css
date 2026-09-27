@@ -161,3 +161,17 @@ textarea {
   background: var(--border-strong);
   border-radius: var(--radius-sm);
 }
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.status-dot-pulse {
+  animation: status-pulse 1.2s ease-in-out infinite;
+}

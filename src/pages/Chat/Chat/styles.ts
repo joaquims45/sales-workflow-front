@@ -33,28 +33,9 @@ export const styles: Record<string, CSSProperties> = {
     color: "var(--text-muted)",
     fontSize: "var(--text-sm)",
   },
-  workflowPanelList: {
+  workflowPanelGraph: {
     flex: 1,
     overflowY: "auto",
-    display: "flex",
-    flexDirection: "column",
-    gap: "var(--space-2)",
-  },
-  workflowPanelEvent: {
-    display: "flex",
-    gap: "var(--space-2)",
-    fontSize: "var(--text-sm)",
-    padding: "var(--space-1) 0",
-    borderBottom: "1px solid var(--border-subtle)",
-  },
-  workflowPanelEventTime: {
-    color: "var(--text-muted)",
-    fontFamily: "var(--font-mono)",
-    fontSize: "var(--text-xs)",
-    flexShrink: 0,
-  },
-  workflowPanelEventLabel: {
-    color: "var(--text-secondary)",
   },
 
   // ConversationSwitcher

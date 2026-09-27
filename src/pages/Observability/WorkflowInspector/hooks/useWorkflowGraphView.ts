@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 
 import { useConversationEvents } from "@/hooks/api";
 import { getState, getStoredConversationId } from "@/services/conversationsService";
-import type { SalesState } from "@/types/sales";
+import type { SalesState, WorkflowEventMessage } from "@/types/sales";
 
 interface UseWorkflowGraphViewResult {
   conversationId: number | null;
   salesState: SalesState | null;
   isShippingActive: boolean;
+  events: WorkflowEventMessage[];
 }
 
 export function useWorkflowGraphView(): UseWorkflowGraphViewResult {
@@ -37,5 +38,5 @@ export function useWorkflowGraphView(): UseWorkflowGraphViewResult {
     if (latest.event_type === "workflow.resumed") setIsShippingActive(false);
   }, [events]);
 
-  return { conversationId, salesState, isShippingActive };
+  return { conversationId, salesState, isShippingActive, events };
 }
