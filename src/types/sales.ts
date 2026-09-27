@@ -67,6 +67,14 @@ export interface WorkflowEvent {
   created_at: string;
 }
 
+// What actually arrives over ws/conversations/{id}/ (events/bus.py) — no
+// `id`, unlike the REST trace endpoint's WorkflowEvent above.
+export interface WorkflowEventMessage {
+  event_type: string;
+  payload: Record<string, unknown>;
+  created_at: string;
+}
+
 export interface Category {
   id: number;
   name: string;
