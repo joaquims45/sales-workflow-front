@@ -1,11 +1,11 @@
 import AppRoutes from "./AppRoutes";
-import { AppLayout } from "@/components/AppLayout";
+import { AppShell } from "@/components/AppShell";
 
 function App() {
   return (
-    <AppLayout>
+    <AppShell>
       <AppRoutes />
-    </AppLayout>
+    </AppShell>
   );
 }
 
