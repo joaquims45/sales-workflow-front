@@ -1,6 +1,7 @@
-import { ConversationSwitcher } from "./components/ConversationSwitcher";
-import { MessageComposer } from "./components/MessageComposer";
-import { MessageList } from "./components/MessageList";
+import { SplitPane } from "@/components/SplitPane";
+
+import { ConversationPanel } from "./components/ConversationPanel";
+import { WorkflowPanel } from "./components/WorkflowPanel";
 import { useConversation } from "./hooks/useConversation";
 import { styles } from "./styles";
 
@@ -17,17 +18,20 @@ export default function Chat() {
 
   return (
     <div style={styles.container}>
-      <ConversationSwitcher
-        conversationId={conversationId}
-        onStartNew={startNewConversation}
-        onSwitch={switchConversation}
+      <SplitPane
+        left={
+          <ConversationPanel
+            conversationId={conversationId}
+            messages={messages}
+            isSending={isSending}
+            error={error}
+            sendMessage={sendMessage}
+            startNewConversation={startNewConversation}
+            switchConversation={switchConversation}
+          />
+        }
+        right={<WorkflowPanel conversationId={conversationId} />}
       />
-
-      <MessageList messages={messages} isSending={isSending} />
-
-      {error && <p role="alert">{error}</p>}
-
-      <MessageComposer onSend={sendMessage} disabled={conversationId === null || isSending} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 export const styles: Record<string, CSSProperties> = {
   root: {
     display: "flex",
-    minHeight: "100vh",
+    height: "100vh",
     background: "var(--bg-canvas)",
   },
   body: {
@@ -11,10 +11,12 @@ export const styles: Record<string, CSSProperties> = {
     display: "flex",
     flexDirection: "column",
     minWidth: 0,
+    minHeight: 0,
   },
   main: {
     flex: 1,
+    minHeight: 0,
     padding: "var(--space-5)",
-    minWidth: 0,
+    overflowY: "auto",
   },
 };

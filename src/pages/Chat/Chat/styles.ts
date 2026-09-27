@@ -2,10 +2,59 @@ import type { CSSProperties } from "react";
 
 export const styles: Record<string, CSSProperties> = {
   container: {
+    height: "100%",
+    overflow: "hidden",
+  },
+  conversationPanel: {
     display: "flex",
     flexDirection: "column",
-    height: "calc(100vh - 4.5rem)",
-    maxWidth: "760px",
+    height: "100%",
+    paddingRight: "var(--space-4)",
+  },
+  workflowPanel: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    paddingLeft: "var(--space-4)",
+    borderLeft: "1px solid var(--border)",
+  },
+  workflowPanelHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: "var(--space-3)",
+  },
+  workflowPanelTitle: {
+    fontSize: "var(--text-base)",
+    fontWeight: 600,
+    margin: 0,
+  },
+  workflowPanelEmpty: {
+    color: "var(--text-muted)",
+    fontSize: "var(--text-sm)",
+  },
+  workflowPanelList: {
+    flex: 1,
+    overflowY: "auto",
+    display: "flex",
+    flexDirection: "column",
+    gap: "var(--space-2)",
+  },
+  workflowPanelEvent: {
+    display: "flex",
+    gap: "var(--space-2)",
+    fontSize: "var(--text-sm)",
+    padding: "var(--space-1) 0",
+    borderBottom: "1px solid var(--border-subtle)",
+  },
+  workflowPanelEventTime: {
+    color: "var(--text-muted)",
+    fontFamily: "var(--font-mono)",
+    fontSize: "var(--text-xs)",
+    flexShrink: 0,
+  },
+  workflowPanelEventLabel: {
+    color: "var(--text-secondary)",
   },
 
   // ConversationSwitcher
