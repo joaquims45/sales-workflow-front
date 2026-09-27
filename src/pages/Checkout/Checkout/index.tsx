@@ -60,6 +60,10 @@ export default function Checkout() {
           <span>${order.total}</span>
         </div>
         <div style={styles.row}>
+          <span style={styles.label}>Estado de la orden</span>
+          <span>{order.status}</span>
+        </div>
+        <div style={styles.row}>
           <span style={styles.label}>Estado del pago</span>
           <span style={paymentStatus ? BADGE_STYLE[paymentStatus] : undefined}>{paymentStatus ?? "—"}</span>
         </div>
