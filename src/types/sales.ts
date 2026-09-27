@@ -60,6 +60,23 @@ export interface PostMessageResponse {
   sales_state: SalesState;
 }
 
+export type PaymentStatus = "PENDING" | "APPROVED" | "REJECTED" | "CANCELLED";
+
+export interface Order {
+  id: number;
+  status: "PENDING" | "CONFIRMED" | "CANCELLED";
+  total: string;
+  created_at: string;
+}
+
+// Response shape of GET /api/conversations/{id}/checkout/
+export interface CheckoutStatus {
+  order: Order | null;
+  payment_status: PaymentStatus | null;
+  checkout_url: string | null;
+  provider: string | null;
+}
+
 export interface WorkflowEvent {
   id: number;
   event_type: string;
