@@ -29,19 +29,21 @@ export function ConversationSwitcher({ conversationId, onSwitch, onStartNew }: C
   return (
     <div style={styles.switcher}>
       <div style={styles.switcherBar}>
-        <span>Conversación #{conversationId ?? "…"}</span>
-        <button type="button" onClick={onStartNew}>
-          Nueva conversación
+        <span style={styles.switcherLabel}>Conversation #{conversationId ?? "…"}</span>
+        <button type="button" style={styles.switcherButton} onClick={onStartNew}>
+          New conversation
         </button>
-        <button type="button" onClick={toggleOpen}>
-          {isOpen ? "Cerrar" : "Ver conversaciones"}
+        <button type="button" style={styles.switcherButton} onClick={toggleOpen}>
+          {isOpen ? "Close" : "Switch conversation"}
         </button>
       </div>
 
       {isOpen && (
         <div style={styles.switcherList}>
-          {isLoading && <p>Cargando…</p>}
-          {!isLoading && conversations.length === 0 && <p>No hay conversaciones todavía.</p>}
+          {isLoading && <p style={styles.switcherHint}>Cargando…</p>}
+          {!isLoading && conversations.length === 0 && (
+            <p style={styles.switcherHint}>No hay conversaciones todavía.</p>
+          )}
           {!isLoading &&
             conversations.map((conversation) => (
               <button

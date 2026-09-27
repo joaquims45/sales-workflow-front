@@ -1,6 +1,6 @@
-import { Composer } from "./components/Composer";
 import { ConversationSwitcher } from "./components/ConversationSwitcher";
-import { MessageBubble } from "./components/MessageBubble";
+import { MessageComposer } from "./components/MessageComposer";
+import { MessageList } from "./components/MessageList";
 import { useConversation } from "./hooks/useConversation";
 import { styles } from "./styles";
 
@@ -17,25 +17,17 @@ export default function Chat() {
 
   return (
     <div style={styles.container}>
-      <h1>Chat</h1>
-
       <ConversationSwitcher
         conversationId={conversationId}
         onStartNew={startNewConversation}
         onSwitch={switchConversation}
       />
 
-      <div style={styles.messageList}>
-        {messages.length === 0 && !error && <p>Contale al asistente qué estás buscando.</p>}
-        {messages.map((message) => (
-          <MessageBubble key={message.id} role={message.role} content={message.content} />
-        ))}
-        {isSending && <MessageBubble role="assistant" content="Escribiendo…" />}
-      </div>
+      <MessageList messages={messages} isSending={isSending} />
 
       {error && <p role="alert">{error}</p>}
 
-      <Composer onSend={sendMessage} disabled={conversationId === null || isSending} />
+      <MessageComposer onSend={sendMessage} disabled={conversationId === null || isSending} />
     </div>
   );
 }
