@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { createConversation, postMessage } from "@/services/conversationsService";
+import {
+  createConversation,
+  getStoredConversationId,
+  postMessage,
+  storeConversationId,
+} from "@/services/conversationsService";
 import type { Message } from "@/types/sales";
-
-// Keeps talking to the same Conversation across page refreshes.
-const STORAGE_KEY = "sales-workflow:conversation-id";
 
 interface UseConversationResult {
   conversationId: number | null;
@@ -25,15 +27,15 @@ export function useConversation(): UseConversationResult {
     if (initialized.current) return;
     initialized.current = true;
 
-    const storedId = localStorage.getItem(STORAGE_KEY);
-    if (storedId) {
-      setConversationId(Number(storedId));
+    const storedId = getStoredConversationId();
+    if (storedId !== null) {
+      setConversationId(storedId);
       return;
     }
 
     createConversation()
       .then((conversation) => {
-        localStorage.setItem(STORAGE_KEY, String(conversation.id));
+        storeConversationId(conversation.id);
         setConversationId(conversation.id);
       })
       .catch(() => setError("No pudimos iniciar la conversación. Recargá la página."));
