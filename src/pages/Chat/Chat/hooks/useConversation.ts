@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
   createConversation,
+  getConversation,
   getStoredConversationId,
   postMessage,
   storeConversationId,
@@ -14,32 +15,35 @@ interface UseConversationResult {
   isSending: boolean;
   error: string | null;
   sendMessage: (content: string) => void;
+  startNewConversation: () => void;
+  switchConversation: (conversationId: number) => void;
 }
 
 export function useConversation(): UseConversationResult {
-  const [conversationId, setConversationId] = useState<number | null>(null);
+  const [conversationId, setConversationId] = useState<number | null>(() => getStoredConversationId());
   const [messages, setMessages] = useState<Message[]>([]);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const initialized = useRef(false);
 
+  // Single source of truth: whenever conversationId is unset, create one;
+  // whenever it's set (on mount from localStorage, or after switching),
+  // (re)load its message history — this is also what makes a refresh not
+  // lose the conversation's history.
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
-
-    const storedId = getStoredConversationId();
-    if (storedId !== null) {
-      setConversationId(storedId);
+    if (conversationId === null) {
+      createConversation()
+        .then((conversation) => {
+          storeConversationId(conversation.id);
+          setConversationId(conversation.id);
+        })
+        .catch(() => setError("No pudimos iniciar la conversación. Recargá la página."));
       return;
     }
 
-    createConversation()
-      .then((conversation) => {
-        storeConversationId(conversation.id);
-        setConversationId(conversation.id);
-      })
-      .catch(() => setError("No pudimos iniciar la conversación. Recargá la página."));
-  }, []);
+    getConversation(conversationId)
+      .then((conversation) => setMessages(conversation.messages))
+      .catch(() => setError("No pudimos cargar la conversación."));
+  }, [conversationId]);
 
   const sendMessage = useCallback(
     (content: string) => {
@@ -58,5 +62,30 @@ export function useConversation(): UseConversationResult {
     [conversationId],
   );
 
-  return { conversationId, messages, isSending, error, sendMessage };
+  const switchConversation = useCallback((newConversationId: number) => {
+    setError(null);
+    storeConversationId(newConversationId);
+    setConversationId(newConversationId);
+  }, []);
+
+  const startNewConversation = useCallback(() => {
+    setError(null);
+
+    createConversation()
+      .then((conversation) => {
+        storeConversationId(conversation.id);
+        setConversationId(conversation.id);
+      })
+      .catch(() => setError("No pudimos crear una nueva conversación."));
+  }, []);
+
+  return {
+    conversationId,
+    messages,
+    isSending,
+    error,
+    sendMessage,
+    startNewConversation,
+    switchConversation,
+  };
 }

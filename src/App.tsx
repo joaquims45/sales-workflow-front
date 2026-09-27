@@ -1,7 +1,12 @@
 import AppRoutes from "./AppRoutes";
+import { AppLayout } from "@/components/AppLayout";
 
 function App() {
-  return <AppRoutes />;
+  return (
+    <AppLayout>
+      <AppRoutes />
+    </AppLayout>
+  );
 }
 
 export default App;

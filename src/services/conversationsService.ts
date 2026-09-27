@@ -18,6 +18,14 @@ export function createConversation(): Promise<Conversation> {
   return apiPost<Conversation>("/api/conversations/");
 }
 
+export function listConversations(): Promise<Conversation[]> {
+  return apiGet<Conversation[]>("/api/conversations/");
+}
+
+export function getConversation(conversationId: number): Promise<Conversation> {
+  return apiGet<Conversation>(`/api/conversations/${conversationId}/`);
+}
+
 export function getState(conversationId: number): Promise<SalesState> {
   return apiGet<SalesState>(`/api/conversations/${conversationId}/state/`);
 }

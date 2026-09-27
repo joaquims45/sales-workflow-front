@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 
 export const styles: Record<string, CSSProperties> = {
   container: { padding: "1.5rem" },
+  header: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" },
   grid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",

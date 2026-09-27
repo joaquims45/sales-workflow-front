@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { ProductCard } from "./components/ProductCard";
 import { useProducts } from "./hooks/useProducts";
 import { styles } from "./styles";
@@ -7,7 +9,10 @@ export default function Store() {
 
   return (
     <div style={styles.container}>
-      <h1>Store</h1>
+      <div style={styles.header}>
+        <h1>Store</h1>
+        <Link to="/store/new">+ Agregar producto</Link>
+      </div>
 
       {isLoading && <p>Cargando catálogo…</p>}
       {error && <p role="alert">{error}</p>}

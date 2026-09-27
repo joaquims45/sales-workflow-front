@@ -1,14 +1,29 @@
 import { Composer } from "./components/Composer";
+import { ConversationSwitcher } from "./components/ConversationSwitcher";
 import { MessageBubble } from "./components/MessageBubble";
 import { useConversation } from "./hooks/useConversation";
 import { styles } from "./styles";
 
 export default function Chat() {
-  const { conversationId, messages, isSending, error, sendMessage } = useConversation();
+  const {
+    conversationId,
+    messages,
+    isSending,
+    error,
+    sendMessage,
+    startNewConversation,
+    switchConversation,
+  } = useConversation();
 
   return (
     <div style={styles.container}>
       <h1>Chat</h1>
+
+      <ConversationSwitcher
+        conversationId={conversationId}
+        onStartNew={startNewConversation}
+        onSwitch={switchConversation}
+      />
 
       <div style={styles.messageList}>
         {messages.length === 0 && !error && <p>Contale al asistente qué estás buscando.</p>}
