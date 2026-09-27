@@ -54,6 +54,12 @@ export interface SalesState {
   checkout_ready: boolean;
 }
 
+// Response shape of POST /api/conversations/{id}/messages/
+export interface PostMessageResponse {
+  messages: Message[];
+  sales_state: SalesState;
+}
+
 export interface WorkflowEvent {
   id: number;
   event_type: string;
