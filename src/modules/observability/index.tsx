@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 
-import Trace from "../../pages/Observability/Trace";
-import WorkflowBrain from "../../pages/Observability/WorkflowBrain";
-import WorkflowInspector from "../../pages/Observability/WorkflowInspector";
+import Trace from "@/pages/Observability/Trace";
+import WorkflowBrain from "@/pages/Observability/WorkflowBrain";
+import WorkflowInspector from "@/pages/Observability/WorkflowInspector";
 
 export default function ObservabilityModule() {
   return (

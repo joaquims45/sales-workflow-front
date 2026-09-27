@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import Chat from "../../pages/Chat/Chat";
+import Chat from "@/pages/Chat/Chat";
 
 export default function ChatModule() {
   return (
