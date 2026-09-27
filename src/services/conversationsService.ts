@@ -1,5 +1,5 @@
 import { apiGet, apiPost } from "@/hooks/api";
-import type { Conversation, PostMessageResponse, SalesState } from "@/types/sales";
+import type { Conversation, PostMessageResponse, SalesState, WorkflowEvent } from "@/types/sales";
 
 // Which conversation the app is currently talking to. Chat creates it;
 // Observability pages read the same one to show its live state.
@@ -24,4 +24,8 @@ export function getState(conversationId: number): Promise<SalesState> {
 
 export function postMessage(conversationId: number, content: string): Promise<PostMessageResponse> {
   return apiPost<PostMessageResponse>(`/api/conversations/${conversationId}/messages/`, { content });
+}
+
+export function getTrace(conversationId: number): Promise<WorkflowEvent[]> {
+  return apiGet<WorkflowEvent[]>(`/api/conversations/${conversationId}/trace/`);
 }
