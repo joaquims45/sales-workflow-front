@@ -18,9 +18,9 @@ export function useConversationEvents(conversationId: number | null) {
 
   const url = conversationId !== null ? `${WS_BASE_URL}/ws/conversations/${conversationId}/` : null;
 
-  useWebSocket(url, (data) => {
+  const { status } = useWebSocket(url, (data) => {
     setEvents((previous) => [...previous, data as WorkflowEventMessage]);
   });
 
-  return { events };
+  return { events, status };
 }

@@ -1,8 +1,10 @@
 import type { CSSProperties } from "react";
 
+import type { ConnectionState } from "@/hooks/api";
+
 import { styles } from "./styles";
 
-export type ConnectionState = "connecting" | "open" | "closed" | "error";
+export type { ConnectionState };
 
 const LABELS: Record<ConnectionState, string> = {
   connecting: "Connecting…",
@@ -18,10 +20,6 @@ const DOT_STYLES: Record<ConnectionState, CSSProperties> = {
   error: styles.dotError,
 };
 
-/**
- * Stage 2: rendered with a fixed "connecting" state as a visual placeholder.
- * Stage 3 wires this to the real useWebSocket status.
- */
 export function ConnectionStatus({ status = "connecting" }: { status?: ConnectionState }) {
   return (
     <div style={styles.root}>
