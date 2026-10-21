@@ -36,7 +36,9 @@ export function WorkflowGraph({
       {nodeStates.map((state, index) => (
         <div key={state.name} style={styles.graphRow}>
           <WorkflowNode state={state} onClick={onSelectNode} />
-          {sideQuery?.fromNode === state.name && <WorkflowBranch sideQuery={sideQuery} />}
+          {sideQuery?.fromNode === state.name && (
+            <WorkflowBranch sideQuery={sideQuery} onClick={onSelectNode} />
+          )}
           {index < nodeStates.length - 1 && <div style={styles.edge} />}
         </div>
       ))}

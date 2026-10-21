@@ -7,11 +7,17 @@ import { styles } from "./styles";
 // mark once workflow.resumed shows it's resolved (ARCHITECTURE redesign
 // plan §8: "once resolved, collapses ... doesn't take up space in the main
 // graph").
-export function WorkflowBranch({ sideQuery }: { sideQuery: SideQueryState }) {
+export function WorkflowBranch({
+  sideQuery,
+  onClick,
+}: {
+  sideQuery: SideQueryState;
+  onClick?: (node: string) => void;
+}) {
   return (
     <div style={{ ...styles.branch, ...(sideQuery.resolved ? styles.branchResolved : {}) }}>
       <div style={styles.branchConnector} />
-      <SideQueryNode sideQuery={sideQuery} />
+      <SideQueryNode sideQuery={sideQuery} onClick={onClick} />
     </div>
   );
 }

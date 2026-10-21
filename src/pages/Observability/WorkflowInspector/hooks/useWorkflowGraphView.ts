@@ -7,14 +7,12 @@ import type { SalesState, WorkflowEventMessage } from "@/types/sales";
 interface UseWorkflowGraphViewResult {
   conversationId: number | null;
   salesState: SalesState | null;
-  isShippingActive: boolean;
   events: WorkflowEventMessage[];
 }
 
 export function useWorkflowGraphView(): UseWorkflowGraphViewResult {
   const [conversationId] = useState(() => getStoredConversationId());
   const [salesState, setSalesState] = useState<SalesState | null>(null);
-  const [isShippingActive, setIsShippingActive] = useState(false);
 
   const { events } = useConversationEvents(conversationId);
 
@@ -28,15 +26,5 @@ export function useWorkflowGraphView(): UseWorkflowGraphViewResult {
       });
   }, [conversationId, events.length]);
 
-  useEffect(() => {
-    const latest = events.at(-1);
-    if (!latest) return;
-
-    // These are momentary: SHIPPING_QUERY suspends/resumes within the same
-    // turn, so REST state never shows "suspended" — only the live event does.
-    if (latest.event_type === "workflow.suspended") setIsShippingActive(true);
-    if (latest.event_type === "workflow.resumed") setIsShippingActive(false);
-  }, [events]);
-
-  return { conversationId, salesState, isShippingActive, events };
+  return { conversationId, salesState, events };
 }

@@ -103,6 +103,9 @@ export const styles: Record<string, CSSProperties> = {
     border: "1px dashed var(--status-running)",
     background: "var(--status-running-bg)",
     flex: 1,
+    textAlign: "left",
+    cursor: "pointer",
+    fontFamily: "inherit",
   },
   sideQueryNodeResolved: {
     border: "1px dashed var(--border)",

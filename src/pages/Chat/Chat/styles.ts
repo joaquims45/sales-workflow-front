@@ -37,6 +37,9 @@ export const styles: Record<string, CSSProperties> = {
     flex: 1,
     overflowY: "auto",
   },
+  workflowPanelInspector: {
+    marginTop: "var(--space-3)",
+  },
 
   // ConversationSwitcher
   switcher: { marginBottom: "var(--space-4)" },

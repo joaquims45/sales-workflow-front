@@ -1,10 +1,14 @@
+import { useState } from "react";
+
+import { NodeInspector } from "@/components/NodeInspector";
 import { WorkflowGraph } from "@/components/WorkflowGraph";
 
 import { useWorkflowGraphView } from "./hooks/useWorkflowGraphView";
 import { styles } from "./styles";
 
 export default function WorkflowInspector() {
-  const { conversationId, isShippingActive, events } = useWorkflowGraphView();
+  const { conversationId, events } = useWorkflowGraphView();
+  const [selectedNode, setSelectedNode] = useState<string | null>(null);
 
   if (conversationId === null) {
     return (
@@ -20,20 +24,19 @@ export default function WorkflowInspector() {
       <h1>Workflow Inspector</h1>
       <p style={styles.subtitle}>PRODUCT_PURCHASE — conversación #{conversationId}</p>
 
-      <WorkflowGraph events={events} />
+      <WorkflowGraph events={events} onSelectNode={setSelectedNode} />
 
-      <div style={styles.sideQuery}>
-        <p style={styles.sideQueryLabel}>SIDE_QUERY (interrupción)</p>
-        <span style={isShippingActive ? styles.sideQueryBoxActive : styles.sideQueryBox}>
-          SHIPPING_QUERY {isShippingActive ? "— SUSPENDED" : ""}
-        </span>
-      </div>
+      {selectedNode && (
+        <div style={styles.inspector}>
+          <NodeInspector nodeName={selectedNode} events={events} onClose={() => setSelectedNode(null)} />
+        </div>
+      )}
 
       <p style={styles.legend}>
         Cada nodo refleja su estado real (<code>node.started</code>/<code>node.completed</code>/
-        <code>node.failed</code>) para el turno en curso. El recuadro de SHIPPING_QUERY se enciende solo
-        durante el instante en que el workflow está suspendido — es momentáneo, ya que SIDE_QUERY se resuelve
-        dentro del mismo turno.
+        <code>node.failed</code>) para el turno en curso — click en un nodo para ver su detalle. Una
+        consulta lateral como SHIPPING_QUERY aparece como una rama temporal colgando del nodo que
+        interrumpió.
       </p>
     </div>
   );
