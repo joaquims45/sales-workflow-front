@@ -1,7 +1,9 @@
 import type { WorkflowEventMessage } from "@/types/sales";
 
 import { deriveNodeStates } from "./deriveNodeStates";
+import { deriveSideQuery } from "./deriveSideQuery";
 import { styles } from "./styles";
+import { WorkflowBranch } from "./WorkflowBranch";
 import { WorkflowNode } from "./WorkflowNode";
 
 // Mirrors workflows/graph/product_purchase.py's node names and rough
@@ -27,12 +29,14 @@ export function WorkflowGraph({
   onSelectNode?: (node: string) => void;
 }) {
   const nodeStates = deriveNodeStates(events, PRODUCT_PURCHASE_NODE_ORDER);
+  const sideQuery = deriveSideQuery(events);
 
   return (
     <div style={styles.graph}>
       {nodeStates.map((state, index) => (
         <div key={state.name} style={styles.graphRow}>
           <WorkflowNode state={state} onClick={onSelectNode} />
+          {sideQuery?.fromNode === state.name && <WorkflowBranch sideQuery={sideQuery} />}
           {index < nodeStates.length - 1 && <div style={styles.edge} />}
         </div>
       ))}

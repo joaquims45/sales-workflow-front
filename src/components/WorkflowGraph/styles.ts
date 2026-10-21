@@ -71,4 +71,47 @@ export const styles: Record<string, CSSProperties> = {
   nodeSkipped: {
     opacity: 0.4,
   },
+
+  branch: {
+    display: "flex",
+    alignItems: "stretch",
+    gap: "var(--space-2)",
+    marginLeft: "var(--space-5)",
+    marginTop: "var(--space-1)",
+    marginBottom: "var(--space-2)",
+  },
+  branchResolved: {
+    opacity: 0.6,
+  },
+  branchConnector: {
+    width: "var(--space-3)",
+    borderLeft: "1px dashed var(--border-strong)",
+    borderBottom: "1px dashed var(--border-strong)",
+    borderBottomLeftRadius: "var(--radius-sm)",
+    marginTop: "-6px",
+    height: "1.4rem",
+    flexShrink: 0,
+  },
+
+  sideQueryNode: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: "var(--space-1)",
+    padding: "var(--space-1) var(--space-2)",
+    borderRadius: "var(--radius-sm)",
+    border: "1px dashed var(--status-running)",
+    background: "var(--status-running-bg)",
+    flex: 1,
+  },
+  sideQueryNodeResolved: {
+    border: "1px dashed var(--border)",
+    background: "var(--bg-surface)",
+  },
+  sideQueryNodeName: {
+    fontSize: "var(--text-xs)",
+    fontWeight: 600,
+    color: "var(--text-secondary)",
+    fontFamily: "var(--font-mono)",
+  },
 };

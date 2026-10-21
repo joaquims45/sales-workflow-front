@@ -1,6 +1,8 @@
 import type { Status } from "@/components/StatusBadge";
 import type { WorkflowEventMessage } from "@/types/sales";
 
+import { turnEvents } from "./turnEvents";
+
 export interface NodeState {
   name: string;
   status: Status;
@@ -23,10 +25,7 @@ export function deriveNodeStates(events: WorkflowEventMessage[], nodeOrder: read
     nodeOrder.map((name) => [name, { name, status: "pending", durationMs: null, error: null }]),
   );
 
-  const lastMessageIndex = events.map((event) => event.event_type).lastIndexOf("message.received");
-  const turnEvents = lastMessageIndex === -1 ? events : events.slice(lastMessageIndex);
-
-  for (const event of turnEvents) {
+  for (const event of turnEvents(events)) {
     const node = event.payload.node;
     if (typeof node !== "string" || !states.has(node)) continue;
 
